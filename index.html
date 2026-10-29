@@ -33,11 +33,10 @@
       msg.innerHTML = '<div>🔒 <b>Falta tu clave.</b><br>Abre el enlace que te da el bot con /web.</div>';
       return;
     }
-    msg.textContent = 'Cargando…';
+    msg.textContent = 'Cargando…';   // la página del bot tiene fondo propio y lo tapa al terminar de abrir
     var f = document.createElement('iframe');
     f.title = 'Cuentas de la casa';
     f.allow = 'clipboard-write';
-    f.onload = function () { msg.textContent = ''; };
     f.src = APP + '?k=' + encodeURIComponent(k);
     document.body.appendChild(f);
   }
