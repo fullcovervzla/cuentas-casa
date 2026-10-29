@@ -37,6 +37,7 @@
     var f = document.createElement('iframe');
     f.title = 'Cuentas de la casa';
     f.allow = 'clipboard-write';
+    f.onload = function () { msg.textContent = ''; };
     f.src = APP + '?k=' + encodeURIComponent(k);
     document.body.appendChild(f);
   }
