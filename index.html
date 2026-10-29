@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="referrer" content="no-referrer">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#0e1322">
+<meta name="apple-mobile-web-app-title" content="Cuentas">
+<title>Cuentas de la casa</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E💰%3C/text%3E%3C/svg%3E">
+<style>
+  :root { --bg: #0e1322; --text: #f0efec; --muted: #737b92; }
+  html, body { margin: 0; height: 100%; background: var(--bg); color: var(--text);
+    font: 15px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+  iframe { position: fixed; inset: 0; width: 100%; height: 100%; border: 0; display: block; }
+  .msg { position: fixed; inset: 0; display: flex; align-items: center; justify-content: center; padding: 16px; text-align: center; color: var(--muted); }
+  .msg b { color: var(--text); }
+</style>
+</head>
+<body>
+<div class="msg" id="msg">Cargando…</div>
+<script>
+  // Abre la página del bot (Apps Script) dentro de esta. Así Google no pone su aviso gris arriba.
+  // La clave llega después de # (#k=…): esa parte del enlace no se manda a ningún servidor, solo a Google en el marco.
+  var APP = 'https://script.google.com/macros/s/AKfycbxvEBY0YzhqN48eJ9v-rfq4nMp1LnGBoepLEjX2xl4WFn9H9GmSPsGeaNqJNy0uPFyRug/exec';
+  function abrir() {
+    var k = (location.hash.match(/[#&]k=([A-Za-z0-9]+)/) || [])[1];
+    var viejo = document.querySelector('iframe');
+    if (viejo) viejo.remove();
+    var msg = document.getElementById('msg');
+    if (!k) {
+      msg.innerHTML = '<div>🔒 <b>Falta tu clave.</b><br>Abre el enlace que te da el bot con /web.</div>';
+      return;
+    }
+    msg.textContent = 'Cargando…';
+    var f = document.createElement('iframe');
+    f.title = 'Cuentas de la casa';
+    f.allow = 'clipboard-write';
+    f.src = APP + '?k=' + encodeURIComponent(k);
+    document.body.appendChild(f);
+  }
+  window.addEventListener('hashchange', abrir);
+  abrir();
+</script>
+</body>
+</html>
